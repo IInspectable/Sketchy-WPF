@@ -6,82 +6,71 @@
         xmlns:local="clr-namespace:Sketchy_WPF"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Canvas >
+    <Canvas>
         <Canvas.RenderTransform>
-            <ScaleTransform ScaleX="1" ScaleY="1"/>
+            <ScaleTransform ScaleX="1" ScaleY="1" />
         </Canvas.RenderTransform>
 
-        <local:SketchyPolygon Canvas.Left="10" Canvas.Top="10" 
-                                Stroke="Transparent">
+        <local:SketchyPolygon Canvas.Left="10" Canvas.Top="10"
+                              Stroke="Black" 
+                              StrokeThickness="1.5"
+                              StrokeLength="35"
+                              MinStrokeDeviation="0.5"
+                              MaxStrokeDeviation="3">
+            <local:SketchyPolygon.Effect>
+                <DropShadowEffect Color="LightGray" ShadowDepth="3"/>
+            </local:SketchyPolygon.Effect>
             <local:SketchyPolygon.Fill>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+
                     <GradientStop Color="White" Offset="0.0" />
-      
-                    <GradientStop Color="#FFF8DE" Offset="1.0" />
+                    <GradientStop Color="#E0E0E0" Offset="1.0" />
+                    <!--<GradientStop Color="#FFF8DE" Offset="1.0" />-->
+                    <!--<GradientStop Color="Green" Offset="1.0" />-->
                 </LinearGradientBrush>
             </local:SketchyPolygon.Fill>
             <local:SketchyPolygon.Points>
                 <PointCollection>
                     <Point X="0" Y="0" />
-                    <Point X="200" Y="0" />
-                    <Point X="200" Y="100" />
+                    <Point X="190" Y="0" />
+                    <Point X="190" Y="100" />
                     <Point X="0" Y="100" />
                 </PointCollection>
-                    
-                
+
+
             </local:SketchyPolygon.Points>
         </local:SketchyPolygon>
-        <local:SketchyPolygon Canvas.Left="10" Canvas.Top="10" 
-                                Fill="Transparent" Stroke="Black"  StrokeThickness="1.5">
+
+        <local:SketchyPolygon Canvas.Left="220" Canvas.Top="10"
+                              Fill="Orange" Stroke="Black"
+                              StrokeLength="10"
+                              MaxStrokeDeviation="1"
+                              StrokeThickness="1.5">
+            <local:SketchyPolygon.Effect>
+                <DropShadowEffect  Color="LightGray" ShadowDepth="3"/>
+            </local:SketchyPolygon.Effect>
+            <local:SketchyPolygon.LayoutTransform>
+                <RotateTransform Angle="45"/>
+            </local:SketchyPolygon.LayoutTransform>
             <local:SketchyPolygon.Points>
                 <PointCollection>
                     <Point X="0" Y="0" />
-                    <Point X="200" Y="0" />
-                    <Point X="200" Y="100" />
-                    <Point X="0" Y="100" />
+                    <Point X="20" Y="0" />
+                    <Point X="20" Y="20" />
+                    <Point X="0" Y="20" />
                 </PointCollection>
-                    
-                
+
+
             </local:SketchyPolygon.Points>
         </local:SketchyPolygon>
-        
-        <TextBlock Canvas.Top="47" Canvas.Left="30" FontFamily="Bradley Hand ITC" FontSize="20" 
-                   FontWeight="Bold">Artikel bearbeiten</TextBlock>
 
-        
+        <TextBlock Canvas.Top="47" Canvas.Left="30" FontFamily="Bradley Hand ITC" FontSize="20"
+                   FontWeight="Bold">
+            Artikel bearbeiten
+        </TextBlock>
+
 
         <!--<Rectangle Canvas.Left="10" Canvas.Top="10" Width="200" Height="200" Fill="Orange" Stroke="Black"/>-->
-        
+
     </Canvas>
 </Window>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

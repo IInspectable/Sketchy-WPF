@@ -7,7 +7,7 @@ namespace Sketchy_WPF {
 
     class AlternateSketchStrategy: SketchStrategy {
 
-        public double StrokeLength       { get; set; } = 40;
+        public double StrokeLength       { get; set; } = 20;
         public double MinStrokeDeviation { get; set; } = 0.5;
         public double MaxStrokeDeviation { get; set; } = 3;
 
@@ -28,13 +28,16 @@ namespace Sketchy_WPF {
                 var ax = dx / l;
                 var ay = dy / l;
 
-                if (l > 10) {
+                var strokeLength = StrokeLength;
+                var parts        = (int) (l / strokeLength);
 
-                    var parts = (int) (l / StrokeLength);
+                strokeLength = l / parts;
+
+                if (parts > 1) {
 
                     for (int part = 0; part < parts - 1; part++) {
 
-                        var dl = (part + 1) * StrokeLength;
+                        var dl = (part + 1) * strokeLength;
                         var x  = p1.X + dl * ax + RandomRange(MinStrokeDeviation, MaxStrokeDeviation) * RandomSign();
                         var y  = p1.Y + dl * ay + RandomRange(MinStrokeDeviation, MaxStrokeDeviation) * RandomSign();
 
