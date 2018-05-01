@@ -59,11 +59,11 @@ namespace Sketchy_WPF {
             };
             pathFigure.Segments.Add(new PolyLineSegment(pointArray, true));
 
-            return new PathGeometry() {
+            return new PathGeometry {
                 Figures = {
                     pathFigure
                 },
-                FillRule = FillRule,
+                FillRule = FillRule
 
             };
         }

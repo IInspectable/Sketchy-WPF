@@ -7,8 +7,9 @@ namespace Sketchy_WPF {
 
     class AlternateSketchStrategy: SketchStrategy {
 
-        private const double StrokeLength    = 40;
-        private const int    StrokeDeviation = 3;
+        public double StrokeLength       { get; set; } = 40;
+        public double MinStrokeDeviation { get; set; } = 0.5;
+        public double MaxStrokeDeviation { get; set; } = 3;
 
         protected override List<Point> ToSketchyPolygonOverride(IReadOnlyList<Point> sourcePoints) {
             var points = new List<Point>();
@@ -34,8 +35,8 @@ namespace Sketchy_WPF {
                     for (int part = 0; part < parts - 1; part++) {
 
                         var dl = (part + 1) * StrokeLength;
-                        var x  = p1.X + dl * ax + RandomRange(0.5, StrokeDeviation) * RandomSign();
-                        var y  = p1.Y + dl * ay + RandomRange(0.5, StrokeDeviation) * RandomSign();
+                        var x  = p1.X + dl * ax + RandomRange(MinStrokeDeviation, MaxStrokeDeviation) * RandomSign();
+                        var y  = p1.Y + dl * ay + RandomRange(MinStrokeDeviation, MaxStrokeDeviation) * RandomSign();
 
                         points.Add(new Point(x, y));
                     }
