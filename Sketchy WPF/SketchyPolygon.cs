@@ -21,13 +21,6 @@ namespace Sketchy_WPF {
                                           FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsRender)
         );
 
-        protected override void OnRender(DrawingContext drawingContext) {
-            _polygonGeometry = null;
-            base.OnRender(drawingContext);
-        }
-
-        private Geometry _polygonGeometry;
-
         /// <summary>Gets or sets a collection that contains the vertex points of the polygon.   </summary>
         /// <returns>A collection of <see cref="T:System.Windows.Point" /> structures that describe the vertex points of the polygon. The default is a null reference (<see langword="Nothing" /> in Visual Basic).</returns>
         public PointCollection Points {
@@ -45,94 +38,101 @@ namespace Sketchy_WPF {
         protected override Geometry DefiningGeometry => EnsureGeometry();
 
         protected override Size MeasureOverride(Size constraint) {
-            CacheDefiningGeometry();
+            EnsureGeometry();
             return base.MeasureOverride(constraint);
 
         }
 
+        private Geometry _polygonGeometry;
+
         Geometry EnsureGeometry() {
             if (_polygonGeometry == null) {
-                CacheDefiningGeometry();
+                _polygonGeometry = DefineGeometry();
             }
 
             return _polygonGeometry;
         }
 
-        private const double StrokeLength = 10;
-        private const int StrokeDeviation = 3;
+        private const double StrokeLength    = 40;
+        private const int    StrokeDeviation = 3;
 
-        Random _random = new Random();
+        Geometry DefineGeometry() {
 
-        void CacheDefiningGeometry() {
-            PointCollection points = Points;
-            if (points == null) {
-                _polygonGeometry = Geometry.Empty;
-            } else {
+            var pointArray = ScruffyPolygon(Points, StrokeLength, StrokeDeviation);
+            if (pointArray.Count == 0) {
+                return Geometry.Empty;
+            }
 
-                PathFigure pathFigure = new PathFigure();
-                if (points.Count > 0) {
+            var pathFigure = new PathFigure {
+                IsClosed   = true,
+                StartPoint = pointArray[0]
+            };
+            pathFigure.Segments.Add(new PolyLineSegment(pointArray, true));
 
-                    pathFigure.StartPoint = points[0];
-                    if (points.Count > 1) {
+            return new PathGeometry() {
+                Figures = {
+                    pathFigure
+                },
+                FillRule = FillRule,
 
-                        var pointArray = new List<Point>();
-                        for (int index = 1; index < points.Count; ++index) {
+            };
+        }
 
-                            var p1 = points[index - 1];
-                            var p2 = points[index];
+        static List<Point> ScruffyPolygon(IList<Point> sourcePoints, double strokeLength, double maxDeviation) {
 
-                            var dx = p2.X - p1.X;
-                            var dy = p2.Y - p1.Y;
-                            var l  = Math.Sqrt(dx * dx + dy * dy);
+            var points = new List<Point>();
 
-                            var ax = dx / l;
-                            var ay = dy / l;
+            if (sourcePoints.Count <= 1) {
+                return points;
+            }
 
-                            if (l > StrokeLength) {
+            if (sourcePoints[0] != sourcePoints[sourcePoints.Count - 1]) {
+                sourcePoints.Add(sourcePoints[0]);
+            }
 
-                                var parts = (int) (l / StrokeLength);
+            for (int index = 1; index < sourcePoints.Count; ++index) {
 
-                                for (int part = 0; part < parts - 1; part++) {
-                                    var dl = (part + 1) * StrokeLength;
+                var p1 = sourcePoints[index - 1];
+                var p2 = sourcePoints[index];
+                var dx = p2.X - p1.X;
+                var dy = p2.Y - p1.Y;
+                var l  = Math.Sqrt(dx * dx + dy * dy);
+                var ax = dx / l;
+                var ay = dy / l;
 
-                                    var x = p1.X + dl * ax + RandomDouble();
-                                    var y = p1.Y + dl * ay + RandomDouble();
+                if (l > strokeLength) {
 
-                                    var point = new Point(x, y);
-                                    pointArray.Add(point);
-                                }
+                    var parts = (int) (l / strokeLength);
 
-                                pointArray.Add(points[index]);
+                    for (int part = 0; part < parts - 1; part++) {
 
-                            } else {
+                        var dl = part * strokeLength + strokeLength;
+                        var x  = p1.X + dl * ax      + RandomRange(0.5, maxDeviation) * RandomSign();
+                        var y  = p1.Y + dl * ay      + RandomRange(0.5, maxDeviation) * RandomSign();
 
-                                pointArray.Add(points[index]);
-                            }
-
-                        }
-
-                        pathFigure.Segments.Add(new PolyLineSegment(pointArray, true));
+                        points.Add(new Point(x, y));
                     }
 
-                    pathFigure.IsClosed = true;
+                    points.Add(sourcePoints[index]);
+
+                } else {
+
+                    points.Add(sourcePoints[index]);
                 }
 
-                _polygonGeometry = new PathGeometry() {
-                    Figures = {
-                        pathFigure
-                    },
-                    FillRule = FillRule
-                };
             }
+
+            return points;
         }
 
-    
-        double RandomDouble() {
-            return _random.Next(-StrokeDeviation, StrokeDeviation)/2;
+        static readonly Random Random = new Random();
+
+        static double RandomRange(double start, double end) {
+            return Random.Next((int) (start * 10), (int) (end * 10)) / 10.0;
         }
 
-        int RandomSign() {
-            return _random.Next(-1, +1) < 0 ? -1 : 1;
+        static int RandomSign() {
+            return Random.Next(0, 1) == 0 ? -1 : 1;
         }
 
     }
