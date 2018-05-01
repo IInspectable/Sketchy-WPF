@@ -54,6 +54,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="SketchStrategy\AlternateSketchStrategy.cs" />
+    <Compile Include="SketchStrategy\DefaultSketchStrategy.cs" />
+    <Compile Include="SketchStrategy\SketchStrategy.cs" />
     <Compile Include="SketchyPolygon.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
