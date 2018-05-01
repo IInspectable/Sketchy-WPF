@@ -17,33 +17,36 @@
                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
                     <GradientStop Color="White" Offset="0.0" />
       
-                    <GradientStop Color="LimeGreen" Offset="1.0" />
+                    <GradientStop Color="#FFF8DE" Offset="1.0" />
                 </LinearGradientBrush>
             </local:SketchyPolygon.Fill>
             <local:SketchyPolygon.Points>
                 <PointCollection>
                     <Point X="0" Y="0" />
-                    <Point X="150" Y="0" />
-                    <Point X="150" Y="150" />
-                    <Point X="0" Y="150" />
+                    <Point X="200" Y="0" />
+                    <Point X="200" Y="100" />
+                    <Point X="0" Y="100" />
                 </PointCollection>
                     
                 
             </local:SketchyPolygon.Points>
         </local:SketchyPolygon>
         <local:SketchyPolygon Canvas.Left="10" Canvas.Top="10" 
-                                Fill="Transparent" Stroke="Black">
+                                Fill="Transparent" Stroke="Black"  StrokeThickness="1.5">
             <local:SketchyPolygon.Points>
                 <PointCollection>
                     <Point X="0" Y="0" />
-                    <Point X="150" Y="0" />
-                    <Point X="150" Y="150" />
-                    <Point X="0" Y="150" />
+                    <Point X="200" Y="0" />
+                    <Point X="200" Y="100" />
+                    <Point X="0" Y="100" />
                 </PointCollection>
                     
                 
             </local:SketchyPolygon.Points>
         </local:SketchyPolygon>
+        
+        <TextBlock Canvas.Top="47" Canvas.Left="30" FontFamily="Bradley Hand ITC" FontSize="20" 
+                   FontWeight="Bold">Artikel bearbeiten</TextBlock>
 
         
 
