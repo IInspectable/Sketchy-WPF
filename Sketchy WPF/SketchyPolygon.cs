@@ -7,17 +7,20 @@ namespace Sketchy_WPF {
     public class SketchyPolygon: Shape {
 
         public static readonly DependencyProperty PointsProperty = DependencyProperty.Register(
-            nameof(Points), typeof(PointCollection),
-            typeof(SketchyPolygon),
-            new FrameworkPropertyMetadata(defaultValue: null,
-                                          flags: FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsRender));
+            name        : nameof(Points), 
+            propertyType: typeof(PointCollection),
+            ownerType   : typeof(SketchyPolygon),
+            typeMetadata: new FrameworkPropertyMetadata(
+                defaultValue: null,
+                flags       : FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsRender));
 
         public static readonly DependencyProperty FillRuleProperty = DependencyProperty.Register(
-            nameof(FillRule), typeof(FillRule),
-            typeof(SketchyPolygon),
-            new FrameworkPropertyMetadata(FillRule.EvenOdd,
-                                          FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsRender)
-        );
+            name        : nameof(FillRule),
+            propertyType: typeof(FillRule),
+            ownerType   : typeof(SketchyPolygon),
+            typeMetadata: new FrameworkPropertyMetadata(
+                defaultValue: FillRule.EvenOdd,
+                flags       : FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsRender));
 
         public PointCollection Points {
             get { return (PointCollection) GetValue(PointsProperty); }
@@ -31,15 +34,10 @@ namespace Sketchy_WPF {
 
         protected override Geometry DefiningGeometry => EnsureGeometry();
 
-        protected override Size MeasureOverride(Size constraint) {
-            EnsureGeometry();
-            return base.MeasureOverride(constraint);
-        }
-
-        private Geometry _polygonGeometry;
+        private Geometry _geometry;
 
         Geometry EnsureGeometry() {
-            return _polygonGeometry ?? (_polygonGeometry = DefineGeometry());
+            return _geometry ?? (_geometry = DefineGeometry());
         }
 
         Geometry DefineGeometry() {
