@@ -6,7 +6,81 @@
         xmlns:local="clr-namespace:Sketchy_WPF"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
+    <Canvas >
+        <Canvas.RenderTransform>
+            <ScaleTransform ScaleX="1" ScaleY="1"/>
+        </Canvas.RenderTransform>
+
+        <local:SketchyPolygon Canvas.Left="10" Canvas.Top="10" 
+                                Stroke="Transparent">
+            <local:SketchyPolygon.Fill>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="White" Offset="0.0" />
+      
+                    <GradientStop Color="LimeGreen" Offset="1.0" />
+                </LinearGradientBrush>
+            </local:SketchyPolygon.Fill>
+            <local:SketchyPolygon.Points>
+                <PointCollection>
+                    <Point X="0" Y="0" />
+                    <Point X="150" Y="0" />
+                    <Point X="150" Y="150" />
+                    <Point X="0" Y="150" />
+                    <Point X="0" Y="0" />
+                </PointCollection>
+                    
+                
+            </local:SketchyPolygon.Points>
+        </local:SketchyPolygon>
+        <local:SketchyPolygon Canvas.Left="10" Canvas.Top="10" 
+                                Fill="Transparent" Stroke="Black">
+            <local:SketchyPolygon.Points>
+                <PointCollection>
+                    <Point X="0" Y="0" />
+                    <Point X="150" Y="0" />
+                    <Point X="150" Y="150" />
+                    <Point X="0" Y="150" />
+                    <Point X="0" Y="0" />
+                </PointCollection>
+                    
+                
+            </local:SketchyPolygon.Points>
+        </local:SketchyPolygon>
+
         
-    </Grid>
+
+        <!--<Rectangle Canvas.Left="10" Canvas.Top="10" Width="200" Height="200" Fill="Orange" Stroke="Black"/>-->
+        
+    </Canvas>
 </Window>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
