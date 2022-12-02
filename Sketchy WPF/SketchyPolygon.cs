@@ -31,8 +31,8 @@ namespace Sketchy_WPF {
                 flags: FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsRender));
 
         public double MaxStrokeDeviation {
-            get { return (double) GetValue(MaxStrokeDeviationProperty); }
-            set { SetValue(MaxStrokeDeviationProperty, value); }
+            get => (double) GetValue(MaxStrokeDeviationProperty);
+            set => SetValue(MaxStrokeDeviationProperty, value);
         }
 
         public static readonly DependencyProperty MinStrokeDeviationProperty = DependencyProperty.Register(
@@ -44,8 +44,8 @@ namespace Sketchy_WPF {
                 flags: FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsRender));
 
         public double MinStrokeDeviation {
-            get { return (double) GetValue(MinStrokeDeviationProperty); }
-            set { SetValue(MinStrokeDeviationProperty, value); }
+            get => (double) GetValue(MinStrokeDeviationProperty);
+            set => SetValue(MinStrokeDeviationProperty, value);
         }
 
         public static readonly DependencyProperty StrokeLengthProperty = DependencyProperty.Register(
@@ -57,18 +57,18 @@ namespace Sketchy_WPF {
                 flags: FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsRender));
 
         public double StrokeLength {
-            get { return (double) GetValue(StrokeLengthProperty); }
-            set { SetValue(StrokeLengthProperty, value); }
+            get => (double) GetValue(StrokeLengthProperty);
+            set => SetValue(StrokeLengthProperty, value);
         }
 
         public PointCollection Points {
-            get { return (PointCollection) GetValue(PointsProperty); }
-            set { SetValue(PointsProperty, value); }
+            get => (PointCollection) GetValue(PointsProperty);
+            set => SetValue(PointsProperty, value);
         }
 
         public FillRule FillRule {
-            get { return (FillRule) GetValue(FillRuleProperty); }
-            set { SetValue(FillRuleProperty, value); }
+            get => (FillRule)GetValue(FillRuleProperty);
+            set => SetValue(FillRuleProperty, value);
         }
 
         protected override Size ArrangeOverride(Size finalSize)
